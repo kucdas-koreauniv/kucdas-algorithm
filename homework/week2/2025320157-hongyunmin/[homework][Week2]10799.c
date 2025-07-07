@@ -16,12 +16,15 @@ int isFull(Stack *);
 
 int main(){
     Stack stack;
-    char vps[100000] = "";
+    char vps[100001] = "";
     int count = 0;
     scanf("%s", vps);
+    
+    int len_vps = strlen(vps);
+
     init_stack(&stack, strlen(vps));
 
-    for(int i = 0; i < strlen(vps); i++){
+    for(int i = 0; i < len_vps; i++){
         if(vps[i] == '('){
             if(vps[i + 1] == ')'){
                 count += stack.top + 1;
