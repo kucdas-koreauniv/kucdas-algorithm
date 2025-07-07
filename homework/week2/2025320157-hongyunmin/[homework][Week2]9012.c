@@ -40,6 +40,8 @@ int main(){
 
         free(stack.data);
     }
+
+    return 0;
 }
 
 void init_stack(Stack *stack, int n){
