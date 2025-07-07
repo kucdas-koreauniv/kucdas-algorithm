@@ -8,7 +8,7 @@ typedef struct{
 }Stack;
 
 void init_stack(Stack *, int);
-void push(Stack *, int);
+int push(Stack *, int);
 int pop(Stack *);
 int isEmpty(Stack *);
 int isFull(Stack *);
@@ -44,12 +44,12 @@ void init_stack(Stack *stack, int n){
     stack->top = -1;
     stack->max_size = n;
 }
-void push(Stack *stack, int n){
+int push(Stack *stack, int n){
     if(isFull(stack)){
-        printf("Stack overflow");
-        return;
+        return 1;
     }
     stack->data[++stack->top] = n;
+    return 0;
 }
 int pop(Stack *stack){
     if(isEmpty(stack)){
@@ -59,10 +59,8 @@ int pop(Stack *stack){
     return stack->data[stack->top--];
 }
 int isEmpty(Stack *stack){
-    if(stack->top == -1) return 1;
-    else return 0;
+    return stack->top == -1;
 }
 int isFull(Stack *stack){
-    if(stack->top == stack->max_size - 1) return 1;
-    else return 0;
+    return stack->top == stack->max_size - 1;
 }
