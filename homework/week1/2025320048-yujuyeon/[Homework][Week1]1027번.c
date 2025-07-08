@@ -49,5 +49,6 @@ int main(void) {
     }
 
     printf("%d", max_num);
+    
     return 0;
 }
