@@ -17,19 +17,14 @@ int left(bldg b[], int idx) {
     }
     return renew;
 }
-int right(bldg b[], int idx, int max_idx) {
-    double incli = 0;
-    double max_incli = -1000000001;
-    int renew = 0;
-    for (int i = 1; idx + i <= max_idx; i++) {
-        incli = ((double)(b[idx + i].h - b[idx].h)) / i;
-        if (incli > max_incli) {
-            max_incli = incli;
-            renew++;
-        }
+    bldg inverse_building[50];
+    for(int i = 0; i < n; i++) {
+        inverse_building[i].h = b[n - 1 - i].h;
     }
-    return renew;
-}
+    for(int i = 0; i < n; i++) {
+        b[i].num = left(b, i) + left(inverse_building, n - 1 - i);
+        // 다른 코드들
+    }
 
 int main(void) {
     bldg b[50];
