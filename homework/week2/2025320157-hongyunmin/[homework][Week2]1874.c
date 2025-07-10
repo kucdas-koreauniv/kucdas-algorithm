@@ -16,28 +16,27 @@ int isEmpty(Stack *);
 int isFull(Stack *);
 
 int main(){
-    int n, k, num = 1, is_valid_sequence = 1;
+    int seq_size, seq_num, inserted_num = 1, is_valid_sequence = 1;
     Stack stack;
     char result[400001] = "";
 
-    scanf("%d", &n);
-    init_stack(&stack, n);
+    scanf("%d", &seq_size);
+    init_stack(&stack, seq_size);
 
-    for(int i = 0; i < n; i++){
-        scanf("%d", &k);
-        if(num <= k){
-            while(num <= k){
-                push(&stack, num++);
+    for(int i = 0; i < seq_size; i++){
+        scanf("%d", &seq_num);
+        if(inserted_num <= seq_num){
+            while(inserted_num <= seq_num){
+                push(&stack, inserted_num++);
                 strcat(result, "+\n");
             }
             pop(&stack);
             strcat(result, "-\n");
         }
         else{
-            if(peek(&stack) > k){
+            if(peek(&stack) > seq_num){
                 is_valid_sequence = 0;
-                printf("NO");
-                exit(0);
+                break;
             }
             else{
                 pop(&stack);
@@ -47,6 +46,9 @@ int main(){
     }
     if(is_valid_sequence){
         printf("%s", result);
+    }
+    else{
+        printf("NO");
     }
 
     free(stack.data);
