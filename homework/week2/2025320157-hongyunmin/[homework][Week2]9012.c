@@ -15,10 +15,10 @@ int isEmpty(Stack *);
 int isFull(Stack *);
 
 int main(){
-    int n;
-    scanf("%d", &n);
+    int testcase;
+    scanf("%d", &testcase);
     
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i < testcase; i++){
         Stack stack;
         char vps[50] = "";
         int is_valid_paren = 1;
