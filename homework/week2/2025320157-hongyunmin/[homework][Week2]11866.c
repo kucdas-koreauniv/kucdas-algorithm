@@ -18,28 +18,28 @@ int isFull(CircularQueue *);
 
 int main(){
     CircularQueue c_queue;
-    int n, k, index = 0;
+    int num_people, kth, index = 0;
     int result[1000];
     
-    scanf("%d %d", &n, &k);
-    init_queue(&c_queue, n);
+    scanf("%d %d", &num_people, &kth);
+    init_queue(&c_queue, num_people);
 
-    for(int i = 0; i < n; i++){
-        enqueue(&c_queue, i + 1);
+    for(int i = 1; i <= num_people; i++){
+        enqueue(&c_queue, i);
     }
 
     while(!isEmpty(&c_queue)){
-        for(int i = 1; i < k; i++){
+        for(int i = 1; i < kth; i++){
             enqueue(&c_queue, dequeue(&c_queue));
         }
         result[index++] = dequeue(&c_queue);
     }
 
     printf("<");
-    for(int i = 0; i < n - 1; i++){
+    for(int i = 0; i < num_people - 1; i++){
         printf("%d, ", result[i]);
     }
-    printf("%d>", result[n - 1]);
+    printf("%d>", result[num_people - 1]);
 
     free(c_queue.data);
     return 0;

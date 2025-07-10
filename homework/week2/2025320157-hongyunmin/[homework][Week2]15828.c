@@ -17,21 +17,23 @@ int isFull(CircularQueue *);
 
 int main(){
     CircularQueue c_queue;
-    int n, info;
+    int buffer_size, info;
 
-    scanf("%d", &n);
-    init_queue(&c_queue, n);
+    scanf("%d", &buffer_size);
+    init_queue(&c_queue, buffer_size);
 
-    scanf("%d", &info);
-    while(info != -1){
+    while(1){
+        scanf("%d", &info);
+        if(info == -1){
+            break;
+        }
+
         if(info == 0){
             dequeue(&c_queue);
         }
         else{
             enqueue(&c_queue, info);
         }
-
-        scanf("%d", &info);
     }
 
     if(isEmpty(&c_queue)){

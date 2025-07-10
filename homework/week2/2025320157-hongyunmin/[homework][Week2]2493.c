@@ -21,16 +21,16 @@ int isFull(Stack *);
 
 int main(){
     Stack stack;
-    int n, k;
+    int num_top, top_height;
     int *result;
     
-    scanf("%d", &n);
-    init_stack(&stack, n);
-    result = (int *)malloc(sizeof(int) * n);
+    scanf("%d", &num_top);
+    init_stack(&stack, num_top);
+    result = (int *)malloc(sizeof(int) * num_top);
 
-    for(int i = 0; i < n; i++){
-        scanf("%d", &k);
-        while(!isEmpty(&stack) && peek(&stack).height < k){
+    for(int i = 0; i < num_top; i++){
+        scanf("%d", &top_height);
+        while(!isEmpty(&stack) && peek(&stack).height < top_height){
             pop(&stack);
         }
         if(isEmpty(&stack)){
@@ -39,11 +39,11 @@ int main(){
         else{
             result[i] = peek(&stack).index;
         }
-        push(&stack, (Top){k, i + 1});
+        push(&stack, (Top){top_height, i + 1});
 
     }
 
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i < num_top; i++){
         printf("%d ", result[i]);
     }
 

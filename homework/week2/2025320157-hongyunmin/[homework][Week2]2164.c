@@ -18,13 +18,13 @@ int isFull(CircularQueue *);
 
 int main(){
     CircularQueue c_queue;
-    int n, index = 0;
+    int num_card, index = 0;
     int result[1000];
     
-    scanf("%d", &n);
-    init_queue(&c_queue, n);
+    scanf("%d", &num_card);
+    init_queue(&c_queue, num_card);
 
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i < num_card; i++){
         enqueue(&c_queue, i + 1);
     }
 
