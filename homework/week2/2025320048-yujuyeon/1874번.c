@@ -45,69 +45,56 @@ void printStack(Stack* s) {
     }
     printf("\n");
 }
-Stack in_s;
-Stack out_s;
+Stack in_stack;
+Stack out_stack;
 Stack output;
 int main(void) {
     
-    init(&in_s);
-    init(&out_s);
+    init(&in_stack);
+    init(&out_stack);
     init(&output);
     int is_possible = 1;
     int n;
     scanf("%d", &n);
     int input[100001];
     int push_num = 0;
+
     for (int i = 0; i < n; i++) {
         scanf("%d", &input[i]);
-        if (i == 0) {
-            for (int j = 0; j < input[i]; j++) {
-                push(&in_s, ++push_num); // 푸시 m번
+        
+        if (input[i] < input[i-1] && input[i] == in_stack.data[in_stack.top]) {
+            push(&out_stack, in_stack.data[in_stack.top]); // 팝
+            pop(&in_stack);
+        
+            push(&output, '-');
+        }
+
+        else if (input[i] > push_num) {
+            int diff = input[i] - push_num;
+            for (int j = 0; j < diff; j++) {
+                push(&in_stack, ++push_num); // 푸시 m번
 
                 push(&output, '+');
-                //printf("push_num = %d\n", push_num);
             }
-            push(&out_s, in_s.data[in_s.top]); // 팝
-            pop(&in_s);
+            push(&out_stack, in_stack.data[in_stack.top]); // 팝 1번
+            pop(&in_stack);
 
             push(&output, '-');
         }
-        else if (i >= 1) {
 
-            if (input[i] < input[i-1] && input[i] == in_s.data[in_s.top]) {
-                push(&out_s, in_s.data[in_s.top]); // 팝
-                pop(&in_s);
-            
-                push(&output, '-');
-                //printf("push_num = %d\n", push_num);
-            }
-
-            else if (input[i] > input[i-1]) {
-                int diff = input[i] - push_num;
-                for (int j = 0; j < diff; j++) {
-                    push(&in_s, ++push_num); // 푸시 m번
-
-                    push(&output, '+');
-                    //printf("push_num = %d\n", push_num);
-                }
-                push(&out_s, in_s.data[in_s.top]); // 팝 1번
-                pop(&in_s);
-
-                push(&output, '-');
-            }
-
-            else {
-                is_possible = 0;
-            }
+        else {
+            is_possible = 0;
         }
     }
-    if (is_possible == 1) {
-        for (int i = 0; i <= output.top; i++) {
-            printf("%c\n", output.data[i]);
-        }
-    }
-     if (is_possible == 0) {
-        printf("NO");
+    switch (is_possible) {
+        case 1:
+            for (int i = 0; i <= output.top; i++) {
+                printf("%c\n", output.data[i]);
+            }
+            break;
+        case 0:
+            printf("NO");
+            break;
     }
 
     return 0;

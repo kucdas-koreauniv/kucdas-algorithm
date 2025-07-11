@@ -16,41 +16,39 @@ void init(Queue* q) {
 void enqueue(Queue* q, int value) {
     if (count == n) {
         //printf("큐 오버플로우!\n");
+        return;
     }
-    else {
-        q->rear = (q->rear + 1) % n;
-        q->data[q->rear] = value;
-        count++;
-    }
+    q->rear = (q->rear + 1) % n;
+    q->data[q->rear] = value;
+    count++;
 }
 
 void dequeue(Queue* q) {
     if (count == 0) {
         //printf("큐 언더플로우!\n");
+        return;
     }
-    else {
-        q->front = (q->front + 1) % n;
-        count--;
-    }
+    q->front = (q->front + 1) % n;
+    count--;
 }
 
 
 int main(void) {
     int input = 0;;
-    Queue q;
-    init(&q);
+    Queue input_queue;
+    init(&input_queue);
     scanf("%d", &n);
-    q.data = (int*)malloc(sizeof(int) * n);
+    input_queue.data = (int*)malloc(sizeof(int) * n);
     while (1) {
         scanf("%d", &input);
-        if (input == 0) {
-            dequeue(&q);
-        }
-        else if  (input == -1) {
-            break;
-        }
-        else {
-            enqueue(&q, input);
+        switch(input) {
+            case 0:
+                dequeue(&input_queue);
+                break;
+            case -1:
+                break;
+            default:
+                enqueue(&input_queue, input);
         }
     }
     if (count == 0) {
@@ -58,9 +56,9 @@ int main(void) {
     }
     else {
         for (int i = 0; i < count; i++) {
-            printf("%d ", q.data[(q.front + i) % n]);
+            printf("%d ", input_queue.data[(input_queue.front + i) % n]);
         }
     }
-    free(q.data);
+    free(input_queue.data);
     return 0;
 }

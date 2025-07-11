@@ -22,19 +22,19 @@ bool isFull(Stack* s) {
 }
 
 bool push(Stack* s, int value) {
-    // if (isFull(s)) {
-    //     printf("스택 오버플로우!\n");
-    //     return false;
-    // }
+    if (isFull(s)) {
+        //printf("스택 오버플로우!\n");
+        return false;
+    }
     s->data[++(s->top)] = value;
     return true;
 }
 
 bool pop(Stack* s) {
-    // if (isEmpty(s)) {
-    //     printf("스택 언더플로우!\n");
-    //     return false;
-    // }
+    if (isEmpty(s)) {
+        //printf("스택 언더플로우!\n");
+        return false;
+    }
     (s->top)--;
     return true;
 }
@@ -47,23 +47,23 @@ void printStack(Stack* s) {
 }
 
 int main(void) {
-    Stack s;
-    init(&s);
+    Stack input_stack;
+    init(&input_stack);
     int count = 0;
     char input[100002];
     scanf("%s", input);
 
     for (int i = 0; input[i] != '\0'; i++) {
         if (input[i] == '(') {
-            push(&s, input[i]);
+            push(&input_stack, input[i]);
         }
         else if (input[i] == ')') {
             if (input[i-1] == '(') {
-                pop(&s);
-                count += (s.top + 1);
+                pop(&input_stack);
+                count += (input_stack.top + 1);
             }
             else {
-                pop(&s);
+                pop(&input_stack);
                 count += 1;
             }
         }
