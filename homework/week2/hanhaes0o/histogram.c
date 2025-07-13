@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX 100000
-#define CMP(a, b) ((a) > (b) ? (a) : (b)) // 넓이의 최댓값을 비교하기 위한 함수 
+#define MAX_LEN 100000
+#define MAX(a, b) ((a) > (b) ? (a) : (b)) // 넓이의 최댓값을 비교하기 위한 함수 
 
-int stack[MAX];
+int stack[MAX_LEN];
 int top = -1;
 
 void push(int x)
@@ -29,9 +29,9 @@ int main()
     
     while(1){ //n이 0이 아니면 무한루프
         
-        int n;
-        scanf("%d", &n);
-        if (n == 0){
+        int num_inputs;
+        scanf("%d", &num_inputs);
+        if (num_inputs == 0){
              for (int i = 0; i < resultCount; i++){
                 printf("%lld\n", resultArray[i]);
             }
@@ -39,12 +39,12 @@ int main()
         }
         top = - 1;
         areaMax = 0;
-        long long *heightArray = malloc(sizeof(long long) * n); // 내가 입력한 넓이값을 저장할 배열
-        for (int i = 0; i < n; i++)
+        long long *heightArray = malloc(sizeof(long long) * num_inputs); // 내가 입력한 넓이값을 저장할 배열
+        for (int i = 0; i < num_inputs; i++)
         {
             scanf("%lld", &heightArray[i]);
         }
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < num_inputs; i++)
         {
             while (!isEmpty() && heightArray[stack[top]] > heightArray[i]) // 이 조건문의 뜻은? 스택이 비어있지 않고, 현재 인덱스(i)의 높이가 스택의 top의 높이보다 작다
             // 가령 3개의 높이 [4 1 5 3] 의 예시를 보자. 이 높이의 인덱스는 각각 [0 1 2 3]일 것이다. 
@@ -66,13 +66,13 @@ int main()
                     width = i - stack[top] - 1; // 스택이 비어있지 않다면 스택의 top이 왼쪽 경계 역할을 한다.  
                 }   
                 long long area = height * width;
-                areaMax = CMP(areaMax, area);
+                areaMax = MAX(areaMax, area);
             }
             push(i);
         }// 이 과정을 다 거치면, 스택은 [0] [1] [1 2] [1 3]이 된다. 그리고 0이 pop될때 넓이 4, 2가 pop될때 넓이 5가 나온다. 남은 인덱스 [1 3]도 마저 계산한다.
         //마저 계산하면 인덱스 3이 pop될때 넓이 6, 인덱스 1이 pop될때 넓이 4가 나온다.
         // 즉 이 케이스에서 최대 넓이는 인덱스 3의 높이 3을 이용해 구할 수 있는 6이다. 
-        int i = n;
+        int i = num_inputs;
         while (!isEmpty())
         {
             int tp = pop();
@@ -87,7 +87,7 @@ int main()
                 width = i - stack[top] - 1;
             }   
             long long area = height * width;
-            areaMax = CMP(areaMax, area);
+            areaMax = MAX(areaMax, area);
         }
         resultArray[resultCount] = areaMax;
         resultCount++;

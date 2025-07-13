@@ -21,7 +21,7 @@ int pop(){
     }
     return stack[top--];
 }
-int Operation(int a, int b, char op) {
+int operation(int a, int b, char op) {
     switch (op) {
         case '+': return a + b;
         case '-': return a - b;
@@ -43,7 +43,7 @@ int main(void) {
         }
         else if (strlen(tok)==1 && strchr("+-*/", tok[0])) {
             int b = pop(), a = pop();
-            push(Operation(a, b, tok[0]));
+            push(operation(a, b, tok[0]));
         }
         else {
             fprintf(stderr, "잘못된 입력: %s\n", tok);

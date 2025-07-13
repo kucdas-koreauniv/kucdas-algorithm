@@ -22,7 +22,6 @@ int isEmpty()
 
 int main()
 {
-    top = -1;
     // 데이터의 수를 받는다
     int num;
     scanf("%d", &num);
@@ -50,18 +49,10 @@ int main()
         // 처음이 아니더라도 (나 )가 아니면 오류다.
         for (int j = 0; j < length; j++)
         {
-            if (parentheses[i][j] != '(' && parentheses[i][j] != ')')
-            {
-                valid = 0;
-                break;
-            }
             if (parentheses[i][j] == '(') {
                 push(0);
-                if (top >= MAX) {  // 오버플로우 방지
-                    valid = 0;
-                    break;
-                }
-            } else {
+            } 
+            else {
                 // 여는 괄호 없이 닫는 괄호가 오면 오류
                 if (isEmpty()) {
                     valid = 0;
