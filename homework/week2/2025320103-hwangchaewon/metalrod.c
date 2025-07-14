@@ -6,7 +6,7 @@ int main()
 {
     // 입력 : 쇠막대기와 레이저의 배치를 나타내는 괄호 표현(100,000)
 
-    char buffer[100001] = { 0, };
+    char buffer[100001];
     scanf("%s", buffer);
 
     int len = strlen(buffer);
@@ -37,5 +37,7 @@ int main()
     }
 
     printf("%d", total);
+
+    return 0;
 
 }
