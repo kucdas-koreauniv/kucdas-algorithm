@@ -10,7 +10,7 @@ typedef struct q
 Queue *front = NULL;
 Queue *rear = NULL;
 
-void Dequeue(Queue **p_front, int *p_count)
+void dequeue(Queue **p_front, int *p_count)
 {
     Queue *p = *p_front;
     *p_front = (*p_front)->p_next;
@@ -18,7 +18,7 @@ void Dequeue(Queue **p_front, int *p_count)
     (*p_count)--;
 }
 
-void Enqueue(Queue **pp_buffer, int temp, int *p_count, Queue **p_front, Queue **p_rear)
+void enqueue(Queue **pp_buffer, int temp, int *p_count, Queue **p_front, Queue **p_rear)
 {
 
     (*pp_buffer)->data = temp;
@@ -35,7 +35,7 @@ void Enqueue(Queue **pp_buffer, int temp, int *p_count, Queue **p_front, Queue *
     }
 }
 
-void dumpQueue(int count, Queue **p_front)
+void dumpqueue(int count, Queue **p_front)
 {
     for (int i = 0; i < count; i++)
     {
@@ -67,7 +67,7 @@ int main()
         switch (temp)
         {
         case 0:
-            Dequeue(&front, &count);
+            dequeue(&front, &count);
             break;
         default:
             if (count < buffer_size)
@@ -75,12 +75,12 @@ int main()
                 Queue *p_buffer = (Queue *)malloc(sizeof(Queue));
                 p_buffer->p_next = NULL;
 
-                Enqueue(&p_buffer, temp, &count, &front, &rear);
+                enqueue(&p_buffer, temp, &count, &front, &rear);
             }
         }
     }
 
-    dumpQueue(count, &front);
+    dumpqueue(count, &front);
 
     return 0;
 }

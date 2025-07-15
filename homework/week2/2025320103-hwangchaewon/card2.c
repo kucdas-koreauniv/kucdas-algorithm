@@ -10,7 +10,7 @@ typedef struct q
 Queue *front = NULL;
 Queue *rear = NULL;
 
-void Dequeue(Queue **p_front)
+void dequeue(Queue **p_front)
 {
     if (*p_front == NULL)
     {
@@ -62,7 +62,7 @@ int main()
     {
         // 카드 하나가 남을 때까지 반복 : front 하나 버리고(dequeue) 하나 rear로 옮기기
 
-        Dequeue(&front);
+        dequeue(&front);
 
         rear->p_next = front;
         rear = front;
