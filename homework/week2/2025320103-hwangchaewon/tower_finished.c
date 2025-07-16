@@ -15,15 +15,13 @@ int main()
     int N;
     scanf("%d", &N);
 
-    int temp = 0;
-
-    int success = 0; // 송신 성공 여부
-
     for (int i = 0; i < N; i++)
     {
-        scanf("%d", &temp);
+        int temp = 0;
 
-        success = 0; // 송신 성공 여부 초기화
+        int success = 0; // 송신 성공 여부
+
+        scanf("%d", &temp);
 
         // 입력받은 값(temp)을 수신받을 후보 스택(p_recept)에 push
         Stack *p_recept = (Stack *)malloc(sizeof(Stack));
@@ -40,37 +38,36 @@ int main()
         {
             top = p_recept;
             printf("0 ");
+            continue;
         }
-        else
+
+        Stack *p = top; // top부터 탐색 시작.
+        while (p != NULL)
         {
-            Stack *p = top; // top부터 탐색 시작.
-            while (p != NULL)
-            {
-                if (p->height < p_recept->height)
-                { // 불필요한 탑 제거
-                    Stack *p_temp = p;
+            if (p->height < p_recept->height)
+            { // 불필요한 탑 제거
+                Stack *p_temp = p;
 
-                    top = p->p_down;
-                    p = p->p_down;
+                top = p->p_down;
+                p = p->p_down;
 
-                    free(p_temp);
-                    p_temp = NULL;
-                }
-                else
-                { // 송신 시도
-
-                    printf("%d ", p->tower_index);
-                    success = 1;
-                    break;
-                }
+                free(p_temp);
+                p_temp = NULL;
             }
-            p_recept->p_down = top;
-            top = p_recept;
+            else
+            { // 송신 시도
 
-            if (success == 0)
-            {
-                printf("0 ");
+                printf("%d ", p->tower_index);
+                success = 1;
+                break;
             }
+        }
+        p_recept->p_down = top;
+        top = p_recept;
+
+        if (success == 0)
+        {
+            printf("0 ");
         }
     }
 
