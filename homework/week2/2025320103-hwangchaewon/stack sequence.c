@@ -134,33 +134,30 @@ int main()
 
     for (int i = 1; i < n; i++)
     {
-        if (seq[i] < max_ascending)
+        for (int r = 0; r < seq[i] - max_ascending; r++)
         {
-            int check;
-            peek(&stack, &check);
-            if (check != seq[i])
-            {
-                printf("NO");
-                return 0;
-            }
-            else
-            {
-                int value;
-                pop(&stack, &value);
-                result[result_index++] = '-';
-            }
+            int value;
+            pop(&ascending, &value);
+            push(&stack, value);
+            result[result_index++] = '+';
+        }
+
+        int check = 0;
+        peek(&stack, &check);
+        if (check != seq[i])
+        {
+            printf("NO");
+            return 0;
         }
         else
         {
-            for (int r = 0; r < seq[i] - max_ascending; r++)
-            {
-                int value;
-                pop(&ascending, &value);
-                push(&stack, value);
-                result[result_index++] = '+';
-            }
-            pop(&stack, &max_ascending);
+            int value;
+            pop(&stack, &value);
             result[result_index++] = '-';
+            if (value > max_ascending)
+            {
+                max_ascending = value;
+            }
         }
     }
 
