@@ -3,7 +3,7 @@
 
 typedef struct stack
 {
-    int data;
+    int height;
     int tower_index;
     struct stack *p_down;
 } Stack;
@@ -21,19 +21,18 @@ int main()
 
     for (int i = 0; i < N; i++)
     {
-
         scanf("%d", &temp);
 
         success = 0; // 송신 성공 여부 초기화
 
-        // 수신받을 후보 스택으로 복사 + 불필요한(지금 들어온 값보다 작은) 탑 제거 + 송신 시도
+        // 입력받은 값(temp)을 수신받을 후보 스택(p_recept)에 push
         Stack *p_recept = (Stack *)malloc(sizeof(Stack));
         if (p_recept == NULL)
         {
             printf("메모리 할당 실패");
             return 1;
         }
-        p_recept->data = temp;
+        p_recept->height = temp;
         p_recept->tower_index = i + 1;
         p_recept->p_down = NULL;
 
@@ -44,34 +43,25 @@ int main()
         }
         else
         {
-
-            Stack *p = top;
-            Stack *p_up = NULL;
+            Stack *p = top; // top부터 탐색 시작.
             while (p != NULL)
             {
-                if (p->data < p_recept->data)
-                {
+                if (p->height < p_recept->height)
+                { // 불필요한 탑 제거
                     Stack *p_temp = p;
-                    if (p_up != NULL)
-                    {
-                        p_up->p_down = p->p_down;
-                    }
-                    else
-                    {
-                        top = p->p_down;
-                    }
+
+                    top = p->p_down;
                     p = p->p_down;
+
                     free(p_temp);
+                    p_temp = NULL;
                 }
                 else
-                {
-                    if (success == 0)
-                    {
-                        printf("%d ", p->tower_index);
-                        success = 1;
-                    }
-                    p_up = p;
-                    p = p->p_down;
+                { // 송신 시도
+
+                    printf("%d ", p->tower_index);
+                    success = 1;
+                    break;
                 }
             }
             p_recept->p_down = top;
