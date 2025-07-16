@@ -142,9 +142,8 @@ int main()
             result[result_index++] = '+';
         }
 
-        int check = 0;
-        peek(&stack, &check);
-        if (check != seq[i])
+        int check;
+        if (!peek(&stack, &check) || check != seq[i])
         {
             printf("NO");
             return 0;
