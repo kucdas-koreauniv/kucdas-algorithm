@@ -11,9 +11,7 @@ int main()
     {
         // 선언과 동시에 초기화
         int stacksize = 0; // 사이즈 개념만 사용
-        char buffer[51] = {
-            0,
-        };
+        char buffer[51];
         scanf("%s", buffer);
 
         int buffer_len = strlen(buffer);
@@ -23,14 +21,9 @@ int main()
             {
                 stacksize++;
             }
-            else if (buffer[j] == ')')
-            {
-                stacksize--;
-            }
             else
             {
-                printf("NO\n");
-                break;
+                stacksize--;
             }
 
             if (stacksize < 0)
