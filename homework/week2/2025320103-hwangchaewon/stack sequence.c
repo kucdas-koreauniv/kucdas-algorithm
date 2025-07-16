@@ -134,30 +134,8 @@ int main()
 
     for (int i = 1; i < n; i++)
     {
-        if (seq[i - 1] < seq[i])
+        if (seq[i] < max_ascending)
         {
-            if (seq[i] < max_ascending)
-            {
-                printf("NO");
-                return 0;
-            }
-            else
-            {
-                for (int r = 0; r < seq[i] - max_ascending; r++)
-                {
-                    int value;
-                    pop(&ascending, &value);
-                    push(&stack, value);
-                    result[result_index++] = '+';
-                }
-                pop(&stack, &max_ascending);
-                result[result_index++] = '-';
-            }
-        }
-        else
-        {
-            // seq[i - 1] > seq[i]일 때
-
             int check;
             peek(&stack, &check);
             if (check != seq[i])
@@ -171,6 +149,18 @@ int main()
                 pop(&stack, &value);
                 result[result_index++] = '-';
             }
+        }
+        else
+        {
+            for (int r = 0; r < seq[i] - max_ascending; r++)
+            {
+                int value;
+                pop(&ascending, &value);
+                push(&stack, value);
+                result[result_index++] = '+';
+            }
+            pop(&stack, &max_ascending);
+            result[result_index++] = '-';
         }
     }
 
