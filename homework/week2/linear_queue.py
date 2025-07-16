@@ -1,24 +1,27 @@
 MAX_SIZE = 100
-class queue:
-    list = [MAX_SIZE]
-    front = 0
-    rear = 0
+class Queue:
+    def __init__(self):
+        self.list = [None] * MAX_SIZE
+        self.front = 0
+        self.rear = 0
 
-def isFull(queue):
-    return queue.rear == MAX_SIZE
+q = Queue()
 
-def isEmpty(queue):
-    return queue.front == queue.rear
+def isFull(q):
+    return q.rear == MAX_SIZE
 
-def enqueue(queue, element):
-    if isFull:
-        return
-    queue.list[rear] = element
-    rear += 1
+def isEmpty(q):
+    return q.front == q.rear
 
-def dequeue(queue):
-    if isEmpty:
-        return
-    value = queue.list[front]
-    front += 1
+def enqueue(q, element):
+    if isFull(q):
+        return None
+    q.list[q.rear] = element
+    q.rear += 1
+
+def dequeue(q):
+    if isEmpty(q):
+        return None
+    value = q.list[q.front]
+    q.front += 1
     return value
