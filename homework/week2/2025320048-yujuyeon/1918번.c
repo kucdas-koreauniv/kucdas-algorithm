@@ -6,7 +6,8 @@ typedef struct {
     int n;
     int top;
 } Stack;
-void init(Stack* s) {
+void init(Stack* s, int stack_size) {
+    s->n = stack_size;
     s->data = (int*)malloc(sizeof(int) * s->n);
     s->top = -1;
 }
@@ -126,8 +127,7 @@ int main(void) {
     char* change = add_ps(input); //char*을 반환하는 함수
     //printf("%s\n", change);
     Stack operator_stack;
-    operator_stack.n = 1000;
-    init(&operator_stack);
+    init(&operator_stack, 1000);
     for (int i = 0; change[i] != '\0'; i++) {
         if (change[i] >= 65 && change[i] <= 90) {
             printf("%c", change[i]);
