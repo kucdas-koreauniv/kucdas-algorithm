@@ -18,26 +18,30 @@ int main()
     int n_metalrod = 0;
     int total = 0;
 
-    for (int i = 0; i < len; i++) {
-        if (buffer[i] == '(') {
-            if (buffer[i + 1] != ')') {
-                //push
+    for (int i = 0; i < len; i++)
+    {
+        if (buffer[i] == '(')
+        {
+            if (buffer[i + 1] != ')')
+            {
+                // push
                 n_metalrod++;
             }
-            else {
+            else
+            {
                 total += n_metalrod;
-				i++; // 레이저를 만났으므로 다음 문자로 이동    
+                i++; // 레이저를 만났으므로 다음 문자로 이동
             }
         }
-        else if (buffer[i] == ')') {
-            //pop
+        else if (buffer[i] == ')')
+        {
+            // pop
             n_metalrod--;
-			total++; // 한 쇠막대기가 끝났으므로 조각이 하나 추가됨  
+            total++; // 한 쇠막대기가 끝났으므로 조각이 하나 추가됨
         }
     }
 
     printf("%d", total);
 
     return 0;
-
 }
