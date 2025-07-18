@@ -17,34 +17,32 @@ int isFull(CircularQueue *);
 
 int main(){
     CircularQueue c_queue;
-    init_queue(&c_queue, 10);
+    int buffer_size, info;
 
-    printf("%d\n", isEmpty(&c_queue));
-    enqueue(&c_queue, 0);
-    enqueue(&c_queue, 1);
-    enqueue(&c_queue, 2);
-    enqueue(&c_queue, 3);
-    enqueue(&c_queue, 4);
-    enqueue(&c_queue, 5);
-    enqueue(&c_queue, 6);
-    enqueue(&c_queue, 7);
-    enqueue(&c_queue, 8);
-    enqueue(&c_queue, 9);
-    printf("%d\n", isFull(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    enqueue(&c_queue, 10);
-    enqueue(&c_queue, 11);
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
+    scanf("%d", &buffer_size);
+    init_queue(&c_queue, buffer_size);
+
+    while(1){
+        scanf("%d", &info);
+        if(info == -1){
+            break;
+        }
+
+        if(info == 0){
+            dequeue(&c_queue);
+        }
+        else{
+            enqueue(&c_queue, info);
+        }
+    }
+
+    if(isEmpty(&c_queue)){
+        printf("empty");
+    }
+    while(!isEmpty(&c_queue)){
+        int tmp = dequeue(&c_queue);
+        printf("%d ", tmp);
+    }
 
     free(c_queue.data);
     return 0;
