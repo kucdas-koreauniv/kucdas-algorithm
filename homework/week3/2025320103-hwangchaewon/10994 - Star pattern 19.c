@@ -25,7 +25,7 @@ void Star(char **pp, int num, int start_index, int end_index)
         pp[y][end_index - 1] = '*';
     }
 
-    Star(pp, --num, start_index + 2, end_index - 2);
+    Star(pp, num - 1, start_index + 2, end_index - 2);
 }
 
 int main()
@@ -38,7 +38,7 @@ int main()
 
     for (int i = 0; i < one_side; i++)
     {
-        *(pp + i) = (char *)malloc(sizeof(char) * (one_side + 1));
+        pp[i] = (char *)malloc(sizeof(char) * (one_side + 1));
         pp[i][one_side] = '\0';
     }
 
@@ -46,8 +46,8 @@ int main()
 
     for (int i = 0; i < one_side; i++)
     {
-        printf("%s\n", *(pp + i));
-        free(*(pp + i));
+        printf("%s\n", pp[i]);
+        free(pp[i]);
     }
     free(pp);
 
