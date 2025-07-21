@@ -12,49 +12,50 @@ char text[5][130] = {"\"재귀함수가 뭔가요?\"\n",
 // text[3] => text3
 // text[4] => answer
 
-void sentence(int index, int target_index, int string_index)
+void sentence(int index, int target_index, char *s)
 {
     if (index == target_index)
     {
-        printf("%s", text[string_index]);
+        printf(s);
     }
     else
     {
         printf("____");
-        sentence(++index, target_index, string_index);
+        sentence(index + 1, target_index, s);
     }
 }
 
 void finish(int index, int target_index)
 {
-    if(target_index < 0){
+    if (target_index < 0)
+    {
         return;
     }
     if (index == target_index)
     {
         printf("라고 답변하였지.\n");
-        finish(0, --target_index);
+        finish(0, target_index - 1);
     }
-    else 
+    else
     {
         printf("____");
-        finish(++index, target_index);
+        finish(index + 1, target_index);
     }
 }
 
 void recursion(int index, int target_index)
 {
-    sentence(index, target_index, 0); // question
+    sentence(index, target_index, text[0]); // question
     if (index == 0)
     {
-        sentence(index, target_index, 4); // answer
+        sentence(index, target_index, text[4]); // answer
         finish(index, target_index);
     }
     else
     {
-        sentence(index, target_index, 1);
-        sentence(index, target_index, 2);
-        sentence(index, target_index, 3);
+        sentence(index, target_index, text[1]);
+        sentence(index, target_index, text[2]);
+        sentence(index, target_index, text[3]);
         recursion(index - 1, target_index);
     }
 }
