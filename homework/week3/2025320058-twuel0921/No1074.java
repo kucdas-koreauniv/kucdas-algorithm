@@ -11,19 +11,18 @@ public class No1074 {
         System.out.println(findOrder(0, 0, size, r, c, 0));
     }
     private static int findOrder(int row, int col, int size, int r, int c, int num) {
-        if(row == r && col == c) {
+        if(size == 1) {
             return num;
         }
-        int l = 0;
-        for(int i = 0; i < 2; i++) {
-            for(int j = 0; j < 2; j++) {
-                int nextRow = row+i*size/2;
-                int nextCol = col+j*size/2;
-                if(nextRow <= r && r < nextRow+size/2 && nextCol <= c && c < nextCol+size/2) {
-                    return findOrder(nextRow, nextCol, size/2, r, c, num+l*(size/2*size/2));
-                }
-                l++;
-            }
+        int nextSize = size/2;
+        if(r < row+nextSize && c < col+nextSize) {
+            return findOrder(row,col,nextSize,r,c,num);
+        } else if(r < row+nextSize && c >= col+nextSize) {
+            return findOrder(row,col+nextSize,nextSize,r,c,num+(nextSize*nextSize));
+        } else if(r >= row+nextSize && c < col+nextSize) {
+            return findOrder(row+nextSize,col,nextSize,r,c,num+2*(nextSize*nextSize));
+        } else if(r >= row+nextSize && c >= col+nextSize) {
+            return findOrder(row+nextSize,col+nextSize,nextSize,r,c,num+3*(nextSize*nextSize));
         }
         return -1;
     }
