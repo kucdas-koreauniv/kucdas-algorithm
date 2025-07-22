@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void Star(char **pp, int num, int start_index, int end_index)
+void star(char **pp, int num, int start_index, int end_index)
 {
 
     if (num == 1)
@@ -25,7 +25,7 @@ void Star(char **pp, int num, int start_index, int end_index)
         pp[y][end_index - 1] = '*';
     }
 
-    Star(pp, num - 1, start_index + 2, end_index - 2);
+    star(pp, num - 1, start_index + 2, end_index - 2);
 }
 
 int main()
@@ -42,7 +42,7 @@ int main()
         pp[i][one_side] = '\0';
     }
 
-    Star(pp, num, 0, one_side);
+    star(pp, num, 0, one_side);
 
     for (int i = 0; i < one_side; i++)
     {
