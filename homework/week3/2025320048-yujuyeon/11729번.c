@@ -23,10 +23,7 @@ int count_hanoi(int n) {
     return count;
 }
 
-void print_hanoi(int n) {
-    static int current = 1;
-    static int medium = 2;
-    static int dest = 3;
+void print_hanoi(int n, int current, int medium, int dest) {
     if (n == 1) {
         printf("%d %d\n", current, dest);
     }
@@ -35,27 +32,30 @@ void print_hanoi(int n) {
         printf("%d %d\n", current, dest);
 
         swap(&current, &medium);
-        print_hanoi(n - 1);
+        print_hanoi(n - 1, current, medium, dest);
         swap(&current, &medium);
     }
     else {
         swap(&medium, &dest);
-        print_hanoi(n - 1);
+        print_hanoi(n - 1, current, medium, dest);
         swap(&medium, &dest);
        
         printf("%d %d\n", current, dest);
 
         swap(&current, &medium);
-        print_hanoi(n - 1);
+        print_hanoi(n - 1, current, medium, dest);
         swap(&current, &medium);
     }
 }
 
 int main(void) {
+    int current = 1;
+    int medium = 2;
+    int dest = 3;
     int n;
     scanf("%d", &n);
     printf("%d\n", count_hanoi(n));
-    print_hanoi(n);
+    print_hanoi(n, current, medium, dest);
 
     return 0;
 }

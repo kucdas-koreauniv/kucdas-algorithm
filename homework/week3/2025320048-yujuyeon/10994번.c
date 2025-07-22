@@ -70,4 +70,6 @@ int main(void) {
     int n;
     scanf("%d", &n);
     star(n, 0);
+
+    return 0;
 }
