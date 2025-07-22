@@ -3,8 +3,8 @@
 #include<string.h>
 
 typedef struct{
+    int symbol;
     int value;
-    int child;
 }Paren;
 
 typedef struct{
@@ -30,47 +30,45 @@ int main(){
     init_stack(&stack, paren_len);
 
     for(int i = 0; i < paren_len; i++){
-        if(paren_str[i] == '('){
-            push(&stack, (Paren){'(', 1});
-        }
-        else if(paren_str[i] == '['){
-            push(&stack, (Paren){'[', 1});
-        }
-        else if(paren_str[i] == ')'){
-            if(peek(&stack).value != '('){
-                is_valid_paren = 0;
-                break;
-            }
-            if(stack.top == 0){
-                result += pop(&stack).child * 2;
-            }
-            else{
-                int tmp = pop(&stack).child * 2;
-                if(stack.data[stack.top].child == 1){
-                    stack.data[stack.top].child = tmp;
+        switch(paren_str[i]){
+            case '(':
+                push(&stack, (Paren){'(', 1});
+            case '[':
+                push(&stack, (Paren){'[', 1});
+            case ')':
+                if(peek(&stack).symbol != '('){
+                    is_valid_paren = 0;
+                    break;
+                }
+                if(stack.top == 0){
+                    result += pop(&stack).value * 2;
                 }
                 else{
-                    stack.data[stack.top].child += tmp;
+                    int tmp = pop(&stack).value * 2;
+                    if(stack.data[stack.top].value == 1){
+                        stack.data[stack.top].value = tmp;
+                    }
+                    else{
+                        stack.data[stack.top].value += tmp;
+                    }
                 }
-            }
-        }
-        else{
-            if(peek(&stack).value != '['){
-                is_valid_paren = 0;
-                break;
-            }
-            if(stack.top == 0){
-                result += pop(&stack).child * 3;
-            }
-            else{
-                int tmp = pop(&stack).child * 3;
-                if(stack.data[stack.top].child == 1){
-                    stack.data[stack.top].child = tmp;
+            case ']':
+                if(peek(&stack).symbol != '['){
+                    is_valid_paren = 0;
+                    break;
+                }
+                if(stack.top == 0){
+                    result += pop(&stack).value * 3;
                 }
                 else{
-                    stack.data[stack.top].child += tmp;
+                    int tmp = pop(&stack).value * 3;
+                    if(stack.data[stack.top].value == 1){
+                        stack.data[stack.top].value = tmp;
+                    }
+                    else{
+                        stack.data[stack.top].value += tmp;
+                    }
                 }
-            }
         }
     }
     
