@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 typedef struct{
     int front;
@@ -17,34 +18,22 @@ int isFull(CircularQueue *);
 
 int main(){
     CircularQueue c_queue;
-    init_queue(&c_queue, 10);
+    int num_card, index = 0;
+    int result[1000];
+    
+    scanf("%d", &num_card);
+    init_queue(&c_queue, num_card);
 
-    printf("%d\n", isEmpty(&c_queue));
-    enqueue(&c_queue, 0);
-    enqueue(&c_queue, 1);
-    enqueue(&c_queue, 2);
-    enqueue(&c_queue, 3);
-    enqueue(&c_queue, 4);
-    enqueue(&c_queue, 5);
-    enqueue(&c_queue, 6);
-    enqueue(&c_queue, 7);
-    enqueue(&c_queue, 8);
-    enqueue(&c_queue, 9);
-    printf("%d\n", isFull(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    enqueue(&c_queue, 10);
-    enqueue(&c_queue, 11);
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
-    printf("%d\n", dequeue(&c_queue));
+    for(int i = 0; i < num_card; i++){
+        enqueue(&c_queue, i + 1);
+    }
+
+    while(c_queue.count > 1){
+        dequeue(&c_queue);
+        enqueue(&c_queue, dequeue(&c_queue));
+    }
+
+    printf("%d", dequeue(&c_queue));
 
     free(c_queue.data);
     return 0;

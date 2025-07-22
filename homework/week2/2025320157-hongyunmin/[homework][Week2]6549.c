@@ -20,39 +20,41 @@ int isEmpty(Stack *);
 int isFull(Stack *);
 
 int main(){
-    int n;
-    scanf("%d", &n);
-    while(n > 0){
-        long long int max = 0, k, area, h;
-        Stack stack;
-
-        init_stack(&stack, n + 2);
-        push(&stack, (Value){0, 0});
-        
-        for(int i = 1; i <= n; i++){
-            scanf("%lld", &k);
-
-            while(!isEmpty(&stack) && peek(&stack).height > k){
-                h = peek(&stack).height;
-                pop(&stack);
-                area = h * (i - peek(&stack).index - 1);
-                max = max > area ? max : area;
-            }
-
-            push(&stack, (Value){k, i});
+    while(1){
+        int num_value;
+        scanf("%d", &num_value);
+        if(num_value == 0){
+            break;
         }
 
-        while(peek(&stack).height > 0){
-            h = peek(&stack).height;
+        long long int max = 0, value, rect_area, rect_height;
+        Stack stack;
+
+        init_stack(&stack, num_value + 2);
+        push(&stack, (Value){0, 0});
+        
+        for(int i = 1; i <= num_value; i++){
+            scanf("%lld", &value);
+
+            while(peek(&stack).height > value){
+                rect_height = peek(&stack).height;
+                pop(&stack);
+                rect_area = rect_height * (i - peek(&stack).index - 1);
+                max = max > rect_area ? max : rect_area;
+            }
+
+            push(&stack, (Value){value, i});
+        }
+
+        while(!isEmpty(&stack) && peek(&stack).height > 0){
+            rect_height = peek(&stack).height;
             pop(&stack);
-            area = h * (n - peek(&stack).index);
-            max = max > area ? max : area;
+            rect_area = rect_height * (num_value - peek(&stack).index);
+            max = max > rect_area ? max : rect_area;
         }
 
         printf("%lld\n", max);
         free(stack.data);
-        
-        scanf("%d", &n);
     }
 
     return 0;
