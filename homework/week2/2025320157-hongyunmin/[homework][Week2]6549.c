@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 //백준 6549 (히스토그램에서 가장 큰 직사각형)
 
+=======
+>>>>>>> 2f031c9 (2504, 6549 피드백 수용)
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -22,6 +25,7 @@ int isEmpty(Stack *);
 int isFull(Stack *);
 
 int main(){
+<<<<<<< HEAD
     while(1){
         int num_value;
         scanf("%d", &num_value);
@@ -53,10 +57,44 @@ int main(){
             pop(&stack);
             rect_area = rect_height * (num_value - peek(&stack).index);
             max = max > rect_area ? max : rect_area;
+=======
+    int n;
+    scanf("%d", &n);
+    while(n > 0){
+        long long int max = 0, k, area, h;
+        Stack stack;
+
+        init_stack(&stack, n + 2);
+        push(&stack, (Value){0, 0});
+        
+        for(int i = 1; i <= n; i++){
+            scanf("%lld", &k);
+
+            while(!isEmpty(&stack) && peek(&stack).height > k){
+                h = peek(&stack).height;
+                pop(&stack);
+                area = h * (i - peek(&stack).index - 1);
+                max = max > area ? max : area;
+            }
+
+            push(&stack, (Value){k, i});
+        }
+
+        while(peek(&stack).height > 0){
+            h = peek(&stack).height;
+            pop(&stack);
+            area = h * (n - peek(&stack).index);
+            max = max > area ? max : area;
+>>>>>>> 2f031c9 (2504, 6549 피드백 수용)
         }
 
         printf("%lld\n", max);
         free(stack.data);
+<<<<<<< HEAD
+=======
+        
+        scanf("%d", &n);
+>>>>>>> 2f031c9 (2504, 6549 피드백 수용)
     }
 
     return 0;
