@@ -26,16 +26,16 @@ int main()
 
     // T개의 줄에 알파벳 대문자로 구성된 문자열 S 주어짐 (S <= 1000)
 
-        char **pp_str = (char **)malloc(sizeof(char *) * num_testcase);
     for (int i = 0; i < num_testcase; i++)
     {
-        *(pp_str + i) = (char *)malloc(sizeof(char) * 1001);
-        scanf("%s", *(pp_str + i));
+        char *str = (char *)malloc(sizeof(char) * 1001);
+        scanf("%s", str);
 
         int num_call = 0;
 
-        printf("%d ", isPalindrome(*(pp_str + i), &num_call));
+        printf("%d ", isPalindrome(str, &num_call));
         printf("%d\n", num_call);
+        free(str);
     }
 
     // 출력 : "isPalindrome() recursion호출횟수"
