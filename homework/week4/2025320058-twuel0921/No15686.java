@@ -10,12 +10,10 @@ public class No15686 {
         int n = sc.nextInt();
         int m = sc.nextInt();
         int[][] map = new int[n][n];
-        int[][] dist = new int[n][n];
         List<Pos> chickenList = new LinkedList<>();
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
                 map[i][j] = sc.nextInt();
-                dist[i][j] = 2 * n;
                 if(map[i][j] == 2) {
                     map[i][j] = 0;
                     chickenList.add(new Pos(i,j));
@@ -62,7 +60,6 @@ public class No15686 {
         }
     }
     private static int getCityChickenDistance(int[][] map, int[][] dist, int n) {
-        int cityChickenDist = 0;
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
                 if(map[i][j] == 2) {
@@ -70,6 +67,7 @@ public class No15686 {
                 }
             }
         }
+        int cityChickenDist = 0;
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
                 if(map[i][j] == 1) {

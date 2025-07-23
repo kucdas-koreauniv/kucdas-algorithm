@@ -1,15 +1,17 @@
+import java.util.Arrays;
+
 //셀프 넘버 풀이 코드
 public class No4673 {
-    public static void main(String[] args){
-        boolean isSelfNum;
+    public static void main(String[] args) {
+        boolean[] selfNum = new boolean[20000];
+        Arrays.fill(selfNum, true);
         for(int i = 1; i <= 10000; i++){
-            isSelfNum = true;
-            for(int j = 1; j <= i; j++){
-                if(i == d(j)){
-                    isSelfNum = false;
-                }
+            selfNum[d(i)] = false;
+        }
+        for(int i = 1; i <= 10000; i++){
+            if(selfNum[i]) {
+                System.out.println(i);
             }
-            if(isSelfNum) System.out.println(i);
         }
     }
 

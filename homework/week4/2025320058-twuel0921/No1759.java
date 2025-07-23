@@ -33,8 +33,8 @@ public class No1759 {
         }
     }
 
+    static char[] vowel = {'a','e','i','o','u'};
     private static boolean isVowel(char c) {
-        char[] vowel = {'a','e','i','o','u'};
         for(int i = 0; i < 5; i++) {
             if(vowel[i] == c) {
                 return true;

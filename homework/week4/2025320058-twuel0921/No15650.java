@@ -17,7 +17,9 @@ public class No15650 {
 
     private static void printAllSequence(int[] arr, int at, int depth, int n, int m) {
         if(depth == m) {
-            for(int i : arr) System.out.print(i + " ");
+            for(int i : arr) {
+                System.out.print(i + " ");
+            }
             System.out.println();
             return;
         }
