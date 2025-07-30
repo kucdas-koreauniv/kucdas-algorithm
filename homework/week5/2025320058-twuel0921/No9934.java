@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 //완전 이진 트리 풀이 코드
@@ -5,28 +7,30 @@ public class No9934 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int k = sc.nextInt();
-        int[] tree = new int[(1<<k)];
         int[] note = new int[(1<<k)-1];
         for(int i = 0; i < note.length; i++) {
             note[i] = sc.nextInt();
         }
-        getTree(tree, note, 1, 0);
+        List<List<Integer>> treeByLevel = new ArrayList<>();
+        for(int i = 0; i < k; i++) {
+            treeByLevel.add(new ArrayList<>());
+        }
+        getTree(treeByLevel, note, 0, 0, note.length);
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < k; i++) {
-            for(int j = (1<<i); j < (1<<(i+1)); j++) {
-                sb.append(tree[j]).append(" ");
+            for(int j = 0; j < treeByLevel.get(i).size(); j++) {
+                sb.append(treeByLevel.get(i).get(j)).append(" ");
             }
             sb.append('\n');
         }
         System.out.println(sb);
     }
-    private static int getTree(int[] tree, int[] note, int node, int noteIdx) {
-        if(node >= tree.length) {
-            return 0;
+    private static void getTree(List<List<Integer>> treeByLevel, int[] note, int depth, int start, int size) {
+        if(depth == treeByLevel.size()) {
+            return;
         }
-        int left = getTree(tree, note, node*2, noteIdx);
-        tree[node] = note[noteIdx + left];
-        int right = getTree(tree, note, node*2+1, noteIdx+left+1);
-        return left + right + 1;
+        treeByLevel.get(depth).add(note[start+size/2]);
+        getTree(treeByLevel, note, depth+1, start, size/2);
+        getTree(treeByLevel, note, depth+1, start+size/2+1, size/2);
     }
 }

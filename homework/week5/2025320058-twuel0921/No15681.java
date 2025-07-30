@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,7 +20,6 @@ public class No15681 {
             tree.get(v).add(u);
         }
         int[] subtree = new int[n+1];
-        Arrays.fill(subtree, 1);
         boolean[] visited = new boolean[n+1];
         getNodeInSubtree(tree, subtree, visited, r);
         StringBuilder sb = new StringBuilder();
@@ -32,6 +30,7 @@ public class No15681 {
     }
     private static void getNodeInSubtree(List<List<Integer>> tree, int[] subtree, boolean[] visited, int now) {
         visited[now] = true;
+        subtree[now] = 1;
         for(int child : tree.get(now)) {
             if(!visited[child]) {
                 getNodeInSubtree(tree, subtree, visited, child);
