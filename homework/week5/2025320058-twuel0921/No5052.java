@@ -21,6 +21,7 @@ public class No5052 {
         System.out.println(sb);
     }
     //dfs를 통해 접두어 노드를 찾는 식으로 구현했는데 시간 차이는 크지 않은 듯 합니다.
+    //지금 생각해보니 사실상 처음 코드와 다를 바 없는 듯 하네요...
     private static void setPrefixNode(Node now, String number, String curPref, int len) {
         if(len == number.length()) {
             return;
