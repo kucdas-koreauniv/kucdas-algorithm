@@ -19,10 +19,8 @@ public class No11437 {
             tree.get(node2).add(node1);
         }
         int[] parents = new int[n+1];
-        //이 초기화 없이 더 일반화하는게 가능할까요?
-        parents[1] = 1;
         int[] depth = new int[n+1];
-        getParentsAndDepth(tree, parents, depth, 1);
+        getParentsAndDepth(tree, parents, 1, depth, 1, 1);
         int m = sc.nextInt();
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < m; i++) {
@@ -45,14 +43,15 @@ public class No11437 {
         }
         return node1;
     }
-    private static void getParentsAndDepth(List<List<Integer>> tree, int[] parents, int[] depth, int node) {
+    private static void getParentsAndDepth(List<List<Integer>> tree, int[] parentArray, int parent, int[] depthArray, int depth, int node) {
+        parentArray[node] = parent;
+        depthArray[node] = depth;
         for(int child : tree.get(node)) {
-            if(parents[child] != 0) {
+            if(child == parent) {
                 continue;
             }
-            parents[child] = node;
-            depth[child] = depth[node]+1;
-            getParentsAndDepth(tree, parents, depth, child);
+            getParentsAndDepth(tree, parentArray, node, depthArray, depth + 1, child);
         }
     }
+
 }

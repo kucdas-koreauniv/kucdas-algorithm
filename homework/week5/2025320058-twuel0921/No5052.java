@@ -13,27 +13,31 @@ public class No5052 {
             Node tree = new Node("");
             for(int i = 0; i < n; i++) {
                 String number = sc.next();
-                Node current = tree;
-                for(int j = 0; j < number.length(); j++) {
-                    boolean hasChanged = false;
-                    for(Node child : current.children) {
-                        if(child.value.equals(number.substring(0, j+1))) {
-                            current = child;
-                            hasChanged = true;
-                            break;
-                        }
-                    }
-                    if(!hasChanged) {
-                        Node child = new Node(number.substring(0, j+1));
-                        current.addChild(child);
-                        current = child;
-                    }
-                }
+                setPrefixNode(tree, number, "", 0);
             }
             int leaf = getLeaf(tree);
             sb.append(leaf == n ? "YES" : "NO").append('\n');
         }
         System.out.println(sb);
+    }
+    //dfs를 통해 접두어 노드를 찾는 식으로 구현했는데 시간 차이는 크지 않은 듯 합니다.
+    private static void setPrefixNode(Node now, String number, String curPref, int len) {
+        if(len == number.length()) {
+            return;
+        }
+        boolean hasChanged = false;
+        for(Node child : now.children) {
+            if(child.value.equals(curPref+number.charAt(len))) {
+                setPrefixNode(child, number, curPref+number.charAt(len), len+1);
+                hasChanged = true;
+                break;
+            }
+        }
+        if(!hasChanged) {
+            Node child = new Node(curPref+number.charAt(len));
+            now.addChild(child);
+            setPrefixNode(child, number, curPref+number.charAt(len), len+1);
+        }
     }
     private static int getLeaf(Node node) {
         if(node.children.isEmpty()) {
