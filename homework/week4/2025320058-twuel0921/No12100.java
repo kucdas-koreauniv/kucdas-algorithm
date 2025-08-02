@@ -18,7 +18,6 @@ public class No12100 {
         if(depth == 5) {
             return getMaxNum(board);
         }
-        char[] dir = {'U', 'D', 'L', 'R'};
         long max = 0;
         for(int i = 0; i < 4; i++) {
             long[][] nextBoard = new long[board.length][board.length];
@@ -27,7 +26,7 @@ public class No12100 {
                     nextBoard[row][col] = board[row][col];
                 }
             }
-            moveBlocksInBoard(nextBoard, dir[i]);
+            moveBlocksInBoard(nextBoard, i);
             max = Math.max(max, searchMaxNum(nextBoard, depth+1));
         }
         return max;
@@ -41,47 +40,32 @@ public class No12100 {
         }
         return max;
     }
-    private static void moveBlocksInBoard(long[][] board, char dir) {
-        int[][] moveDir = {{-1,0},{1,0},{0,-1},{0,1}};
-        switch(dir) {
-            case 'U':
-                for(int col = 0; col < board.length; col++) {
-                    boolean[] hasCombined = new boolean[board.length];
-                    Arrays.fill(hasCombined, false);
-                    for(int row = 0; row < board.length; row++) {
-                        moveBlock(board, row, col, moveDir[0], hasCombined);
-                    }
+    private static void moveBlocksInBoard(long[][] board, int rotation) {
+        rotateBoard(board, rotation);
+        for(int row = 0; row < board.length; row++) {
+            boolean[] hasCombined = new boolean[board.length];
+            Arrays.fill(hasCombined, false);
+            for(int col = 0; col < board.length; col++) {
+                moveBlock(board, row, col, new int[] {0,-1}, hasCombined);
+            }
+        }
+        rotateBoard(board, 4-rotation);
+    }
+    private static void rotateBoard(long[][] board, int rotation) {
+        int n = board.length;
+        for (int k = 0; k < rotation; k++) {
+            long[][] temp = new long[n][n];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    temp[j][n - 1 - i] = board[i][j];
                 }
-                break;
-            case 'D':
-                for(int col = 0; col < board.length; col++) {
-                    boolean[] hasCombined = new boolean[board.length];
-                    Arrays.fill(hasCombined, false);
-                    for(int row = board.length-1; row >= 0; row--) {
-                        moveBlock(board, row, col, moveDir[1], hasCombined);
-                    }
-                }
-                break;
-            case 'L':
-                for(int row = 0; row < board.length; row++) {
-                    boolean[] hasCombined = new boolean[board.length];
-                    Arrays.fill(hasCombined, false);
-                    for(int col = 0; col < board.length; col++) {
-                        moveBlock(board, row, col, moveDir[2], hasCombined);
-                    }
-                }
-                break;
-            case 'R':
-                for(int row = 0; row < board.length; row++) {
-                    boolean[] hasCombined = new boolean[board.length];
-                    Arrays.fill(hasCombined, false);
-                    for(int col = board.length-1; col >= 0; col--) {
-                        moveBlock(board, row, col, moveDir[3], hasCombined);
-                    }
-                }
-                break;
+            }
+            for (int i = 0; i < n; i++) {
+                System.arraycopy(temp[i], 0, board[i], 0, n);
+            }
         }
     }
+
     private static void moveBlock(long[][] board, int targetRow, int targetCol, int[] moveDir, boolean[] hasCombined) {
         int nextRow = targetRow + moveDir[0];
         int nextCol = targetCol + moveDir[1];
