@@ -43,13 +43,27 @@ public class No12100 {
     private static void moveBlocksInBoard(long[][] board, int rotation) {
         rotateBoard(board, rotation);
         for(int row = 0; row < board.length; row++) {
-            boolean[] hasCombined = new boolean[board.length];
-            Arrays.fill(hasCombined, false);
-            for(int col = 0; col < board.length; col++) {
-                moveBlock(board, row, col, new int[] {0,-1}, hasCombined);
-            }
+            moveBlockToLeft(board, row);
         }
         rotateBoard(board, 4-rotation);
+    }
+    private static void moveBlockToLeft(long[][] board, int row) {
+        boolean[] hasCombined = new boolean[board.length];
+        Arrays.fill(hasCombined, false);
+        for(int col = 0; col < board.length; col++) {
+            int currentCol = col;
+            while(currentCol > 0) {
+                if(board[row][currentCol-1] == 0) { //다음 칸이 빈칸일 경우
+                    board[row][currentCol-1] = board[row][currentCol];
+                    board[row][currentCol] = 0;
+                }else if(board[row][currentCol-1] == board[row][currentCol] && !hasCombined[currentCol-1] && !hasCombined[currentCol]) { //현재칸과 다음칸의 수가 같으면서 합쳐진적이 없을 경우
+                    board[row][currentCol-1] *= 2;
+                    board[row][currentCol] = 0;
+                    hasCombined[currentCol-1] = true;
+                }
+                currentCol--;
+            }
+        }
     }
     private static void rotateBoard(long[][] board, int rotation) {
         int n = board.length;
@@ -63,27 +77,6 @@ public class No12100 {
             for (int i = 0; i < n; i++) {
                 System.arraycopy(temp[i], 0, board[i], 0, n);
             }
-        }
-    }
-
-    private static void moveBlock(long[][] board, int targetRow, int targetCol, int[] moveDir, boolean[] hasCombined) {
-        int nextRow = targetRow + moveDir[0];
-        int nextCol = targetCol + moveDir[1];
-        if(nextRow < 0
-                || nextRow >= board.length
-                || nextCol < 0
-                || nextCol >= board.length) {
-            return;
-        }
-        if(board[nextRow][nextCol] == 0) { //다음 칸이 빈칸일 경우
-            board[nextRow][nextCol] = board[targetRow][targetCol];
-            board[targetRow][targetCol] = 0;
-            moveBlock(board, nextRow, nextCol, moveDir, hasCombined);
-        }else if(board[nextRow][nextCol] == board[targetRow][targetCol] && !hasCombined[nextRow != targetRow ? nextRow : nextCol] && !hasCombined[nextRow != targetRow ? targetRow : targetCol]) { //현재칸과 다음칸의 수가 같으면서 합쳐진적이 없을 경우
-            board[nextRow][nextCol] *= 2;
-            board[targetRow][targetCol] = 0;
-            hasCombined[nextRow != targetRow ? nextRow : nextCol] = true; //행, 열 중 움직이는 줄을 기준으로 판단하기 위한 수식
-            moveBlock(board, nextRow, nextCol, moveDir, hasCombined);
         }
     }
 }

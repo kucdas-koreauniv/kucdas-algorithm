@@ -28,7 +28,7 @@ public class No5052 {
         }
         boolean hasChanged = false;
         for(Node child : now.children) {
-            if(child.value.equals(curPref+number.charAt(len))) {
+            if(child.value.charAt(len) == number.charAt(len)) {
                 setPrefixNode(child, number, curPref+number.charAt(len), len+1);
                 hasChanged = true;
                 break;
