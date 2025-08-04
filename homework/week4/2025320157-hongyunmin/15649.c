@@ -1,0 +1,30 @@
+#include<stdio.h>
+
+int nums[9];
+int used[9];
+int max_num, size;
+
+void permutation(int index){
+    if(index == size){
+        for(int i = 0; i < size; i++){
+            printf("%d ", nums[i]);
+        }
+        printf("\n");
+        return;
+    }
+    for (int i = 1; i <= max_num; i++) {
+		if (used[i] == 0) {
+			nums[index] = i;
+			used[i] = 1;
+			permutation(index + 1);
+			used[i] = 0;
+		}
+	}
+}
+
+int main(){
+    scanf("%d %d", &max_num, &size);
+    permutation(0);
+
+    return 0;
+}
