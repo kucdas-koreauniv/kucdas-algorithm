@@ -19,7 +19,7 @@ public class No1374 {
         for(int i = 0; i < n; i++) {
             int s = times[i].s;
             int t = times[i].t;
-            if(heap.heap.isEmpty()) {
+            if(heap.isEmpty()) {
                 heap.push(t);
                 continue;
             }
@@ -30,7 +30,7 @@ public class No1374 {
                 heap.push(t);
             }
         }
-        System.out.print(heap.heap.size());
+        System.out.print(heap.size());
     }
     private static class Time {
         int s;

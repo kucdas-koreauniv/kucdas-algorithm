@@ -37,7 +37,7 @@ public class No1202 {
                 heap.push(jewel[currentJewel].value);
                 currentJewel++;
             }
-            if(!heap.heap.isEmpty()) {
+            if(!heap.isEmpty()) {
                 ans += heap.pop();
             }
         }

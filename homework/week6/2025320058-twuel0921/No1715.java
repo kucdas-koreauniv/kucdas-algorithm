@@ -10,7 +10,7 @@ public class No1715 {
             heap.push(sc.nextInt());
         }
         long ans = 0;
-        while(heap.heap.size() > 1) {
+        while(heap.size() > 1) {
             int a = heap.pop();
             int b = heap.pop();
             ans += (a+b);

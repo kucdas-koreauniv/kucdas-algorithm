@@ -10,7 +10,7 @@ public class No11279 {
         for(int i = 0; i < n; i++) {
             int x = sc.nextInt();
             if(x == 0) {
-                sb.append(heap.heap.isEmpty() ? 0 : heap.pop()).append('\n');
+                sb.append(heap.isEmpty() ? 0 : heap.pop()).append('\n');
             } else {
                 heap.push(x);
             }

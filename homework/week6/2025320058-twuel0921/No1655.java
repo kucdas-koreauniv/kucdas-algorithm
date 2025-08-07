@@ -15,7 +15,7 @@ public class No1655 {
         System.out.print(sb);
     }
     private static void pushToHeap(MinHeap min, MaxHeap max, int x) {
-        if(min.heap.isEmpty() && max.heap.isEmpty()) {
+        if(min.isEmpty() && max.isEmpty()) {
             max.push(x);
         } else if(max.root() < x) {
             min.push(x);
@@ -26,10 +26,10 @@ public class No1655 {
         }
     }
     private static void balanceHeapSize(MinHeap min, MaxHeap max) {
-        while(max.heap.size() - min.heap.size() > 1) {
+        while(max.size() - min.size() > 1) {
             min.push(max.pop());
         }
-        while(min.heap.size() - max.heap.size() > 0) {
+        while(min.size() - max.size() > 0) {
             max.push(min.pop());
         }
     }
