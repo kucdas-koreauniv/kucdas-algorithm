@@ -19,8 +19,8 @@ for i, v in enumerate(arr) :
         dp[i] = len(std_arr) # arr의 i번째 수가 갖는 LIS 길이 업데이트
 
     else : # 마지막 수보다 크지 않은 수가 들어온다면 
-        std_arr[idx] = min(std_arr[idx], v)
-        # 해당 인덱스의 값을 더 작은 수로 바꿔치기(그래야 다음 i에서 LIS 선택의 폭이 넓어지는 걸 반영 가능)
+        std_arr[idx] = v
+        # 해당 인덱스의 값을 (더 작은 수로) 바꿔치기(그래야 다음 i에서 LIS 선택의 폭이 넓어지는 걸 반영 가능)
         dp[i] = idx + 1
         # 이 수가 갖는 LIS 길이는 삽입 인덱스랑 똑같음(인덱스는 0부터 시작이니까 1 더한거)
 
