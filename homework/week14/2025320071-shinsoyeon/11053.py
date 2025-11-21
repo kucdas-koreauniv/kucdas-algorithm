@@ -1,3 +1,4 @@
+# 12015, 12738과 동일
 # LIS : 최장 증가 부분 수열
 # -> 주어진 수열 중에서 수가 증가하도록 선택해서 만든 수열
 from bisect import bisect_left
